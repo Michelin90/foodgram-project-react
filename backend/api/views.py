@@ -98,8 +98,8 @@ class UserViewSet(viewsets.ModelViewSet):
         )
 
     @action(
-            permission_classes=(permissions.IsAuthenticated,),
-            detail=False
+        permission_classes=(permissions.IsAuthenticated,),
+        detail=False
     )
     def subscribtions(self, request,):
         """
@@ -152,9 +152,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return post_delete_object(request, pk, Favorite)
 
     @action(
-            permission_classes=(permissions.IsAuthenticated,),
-            detail=False,
-            url_path='favorite'
+        permission_classes=(permissions.IsAuthenticated,),
+        detail=False,
+        url_path='favorite'
     )
     def favorite_list(self, request,):
         """
@@ -180,9 +180,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return post_delete_object(request, pk, ShoppingCart)
 
     @action(
-            permission_classes=(permissions.IsAuthenticated,),
-            detail=False,
-            url_path='shopping_cart'
+        permission_classes=(permissions.IsAuthenticated,),
+        detail=False,
+        url_path='shopping_cart'
     )
     def shopping_cart_list(self, request,):
         """

@@ -62,7 +62,7 @@ class UserReadSerialzer(serializers.ModelSerializer):
             return False
         return Subscribe.objects.filter(
             subscribing=obj, user=request.user
-            ).exists()
+        ).exists()
 
 
 class SetPasswordSerializer(serializers.Serializer):
@@ -224,7 +224,7 @@ class RecipeCerateSerializer(serializers.ModelSerializer):
             for ingr in ingredients_data:
                 current_ingredient = get_object_or_404(
                     Ingredient, pk=ingr['id']
-                    )
+                )
                 IngredientRecipe.objects.create(
                     recipe=instance,
                     ingredient=current_ingredient,

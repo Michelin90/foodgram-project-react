@@ -64,7 +64,7 @@ class Recipe(models.Model):
         verbose_name='Картинка, закодированная в Base64',
         upload_to='recipes/images/',
         blank=True
-        )
+    )
     ingredients = models.ManyToManyField(
         Ingredient,
         verbose_name='Список ингредиентов',
