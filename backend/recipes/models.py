@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from users.models import CustomUser
 
@@ -77,8 +78,10 @@ class Recipe(models.Model):
         related_name='recipes',
         through='TagRecipe',
     )
-    cooking_time = models.IntegerField(
-        verbose_name='Время приготовления (в минутах)',)
+    cooking_time = models.PositiveSmallIntegerField(
+        verbose_name='Время приготовления (в минутах)',
+        validators=(MinValueValidator(1),)
+    )
 
     class Meta:
         verbose_name = 'Рецепт'
@@ -92,15 +95,20 @@ class IngredientRecipe(models.Model):
     """Ингредиенты и их количество в рецепте """
     ingredient = models.ForeignKey(
         Ingredient,
+        verbose_name='Ингредиент',
         related_name='ingredient_recipe',
         on_delete=models.CASCADE
     )
     recipe = models.ForeignKey(
         Recipe,
+        verbose_name='Рецепт',
         related_name='ingredient_recipe',
         on_delete=models.CASCADE
     )
-    amount = models.IntegerField()
+    amount = models.PositiveSmallIntegerField(
+        verbose_name='Количество ингредиента в рецепте',
+        validators=(MinValueValidator(1),)
+    )
 
     class Meta:
         verbose_name = 'Ингредиент в рецепте'
@@ -120,11 +128,13 @@ class TagRecipe(models.Model):
     """ Тэги в рецепте"""
     tag = models.ForeignKey(
         Tag,
+        verbose_name='Тэг',
         related_name='recipe',
         on_delete=models.CASCADE
     )
     recipe = models.ForeignKey(
         Recipe,
+        verbose_name='Рецепт',
         related_name='tag',
         on_delete=models.CASCADE
     )
@@ -147,11 +157,13 @@ class Favorite(models.Model):
     """Избранные рецепты"""
     user = models.ForeignKey(
         CustomUser,
+        verbose_name='Пользователь',
         related_name='favorte',
         on_delete=models.CASCADE
     )
     recipe = models.ForeignKey(
         Recipe,
+        verbose_name='Рецепт',
         related_name='favorite',
         on_delete=models.CASCADE
     )
@@ -174,11 +186,13 @@ class ShoppingCart(models.Model):
     """Рецепты в списке покупок"""
     user = models.ForeignKey(
         CustomUser,
+        verbose_name='Пользователь',
         related_name='shopping_cart',
         on_delete=models.CASCADE
     )
     recipe = models.ForeignKey(
         Recipe,
+        verbose_name='Рецепт',
         related_name='shopping_cart',
         on_delete=models.CASCADE
     )
