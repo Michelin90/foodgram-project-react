@@ -17,7 +17,7 @@ def post_delete_object(request, pk, model):
         recipe,
         data=request.data,
         context={'request': request, 'model': model}
-        )
+    )
     if request.method == 'POST':
         serializer.is_valid(raise_exception=True)
         model.objects.create(
