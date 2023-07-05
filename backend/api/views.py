@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from recipes.models import Favorite, Ingredient, Recipe, ShoppingCart, Tag
@@ -6,8 +7,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from users.models import CustomUser, Subscribe
 
-from .core.views_utils import (create_and_download_file, get_paginated_qeryset,
-                               post_delete_object)
+from .core.views_utils import (create_and_download_file,
+                               get_paginated_queryset, post_delete_object)
 from .filters import RecipeFilterSet
 from .pagination import MyPagination
 from .permissions import (IsAdminOrReadOnly, IsCreateOrReadOnly,
@@ -20,7 +21,8 @@ from .serializers import (IngredientSerializer, RecipeCerateSerializer,
 
 class UserViewSet(viewsets.ModelViewSet):
     """Вьюсет для работы с запросами к модели CustomUser."""
-    queryset = CustomUser.objects.all()
+
+    queryset = CustomUser.objects.all().order_by('id')
     permission_classes = (IsCreateOrReadOnly,)
     pagination_class = MyPagination
 
@@ -34,7 +36,15 @@ class UserViewSet(viewsets.ModelViewSet):
         permission_classes=(permissions.IsAuthenticated,),
     )
     def me(self, request):
-        """Метод, возвращающий профиль текущего пользователя."""
+        """Возвращающает профиль текущего пользователя.
+
+        Args:
+            request (HttpRequest): Объект запроса.
+
+        Returns:
+            Response: Текущий пользователь.
+
+        """
         serializer = UserReadSerialzer(
             request.user,
             context={'request': request}
@@ -47,7 +57,15 @@ class UserViewSet(viewsets.ModelViewSet):
         detail=False
     )
     def set_password(self, request):
-        """Метод. позволяющий сменить пароль текущего пользователя."""
+        """Меняет пароль текущего пользователя.
+
+        Args:
+            request (HttpRequest): Объект запроса.
+
+        Returns:
+            Response: Cтатус подтверждающий или запрещающий выбранное действие.
+
+        """
         serializer = SetPasswordSerializer(request.user, data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -59,9 +77,16 @@ class UserViewSet(viewsets.ModelViewSet):
         detail=True
     )
     def subscribe(self, request, pk=None):
-        """
-        Метод, позволяющий оформить или отменить
-        текущему пользователю подписку на выбранного автора.
+        """Оформляет или отменяет подписку на выбранного автора.
+
+        Args:
+            request (HttpRequest): Объект запроса.
+            pk (int): id автора, на которого офоромляется
+                или отменяется подписка.
+
+        Retrurns:
+            Response: Cтатус подтверждающий или запрещающий выбранное действие.
+
         """
         subscribing = get_object_or_404(CustomUser, pk=pk)
         serializer = SubscribeSerializer(
@@ -88,20 +113,26 @@ class UserViewSet(viewsets.ModelViewSet):
         detail=False
     )
     def subscribtions(self, request,):
-        """
-        Метод, возвращающий список обьектов авторов, на которых у
-        текущего пользователя оформлена подписка.
+        """Возвращает список авторов, на которых осуществлена подписка.
+
+        Args:
+            request (HttpResponse): Объект запроса.
+
+        Returns:
+            Response : Ответ, содержащий автров из списка подписок.
+
         """
         subscribtions = CustomUser.objects.filter(
             subscribing__user=request.user
         )
-        return get_paginated_qeryset(
+        return get_paginated_queryset(
             self, SubscribeSerializer, subscribtions, request
         )
 
 
 class TagViewSet(viewsets.ModelViewSet):
     """Вьюсет для работы с запросами к модели Tag."""
+
     queryset = Tag.objects.all()
     serializer_class = TagSerialzer
     permission_classes = (IsAdminOrReadOnly,)
@@ -109,6 +140,7 @@ class TagViewSet(viewsets.ModelViewSet):
 
 class IngridientViewSet(viewsets.ModelViewSet):
     """Вьюсет для работы с запросами к модели Ingredient."""
+
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     permission_classes = (IsAdminOrReadOnly,)
@@ -118,6 +150,7 @@ class IngridientViewSet(viewsets.ModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     """Вьюсет для работы с запросами к модели Recipe."""
+
     queryset = Recipe.objects.all().order_by('-id')
     serializer_class = RecipeCerateSerializer
     permission_classes = (IsOwnerOrReadOnly,)
@@ -131,9 +164,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         detail=True
     )
     def favorite(self, request, pk=None):
-        """
-        Метод, добавляющий или удаляющий выбранный рецепт
-        в списке избранного текущего пользователя.
+        """Добавяет или удаляет выбранный рецепт в избранном.
+
+        Args:
+            request (HttpRequest): Объект запроса.
+            pk (int): id рецепта, удаляемого или добавляемого избранном.
+
+        Returns:
+            Response: Cтатус подтверждающий или запрещающий выбранное действие.
+
         """
         return post_delete_object(request, pk, Favorite)
 
@@ -143,13 +182,18 @@ class RecipeViewSet(viewsets.ModelViewSet):
         url_path='favorite'
     )
     def favorite_list(self, request,):
-        """
-        Метод, возвращающий список обьектов рецептов, которые
-        находятся в списке избранного текущего пользователя.
+        """Возвращает рецепты из списка избранного текущего пользователя.
+
+        Args:
+            request (HttpResponse): Объект запроса.
+
+        Returns:
+            Response : Ответ, содержащий рецепты из списка избранного.
+
         """
         favorites = Recipe.objects.filter(favorite__user=request.user)
         filtered_queryset = self.filter_queryset(favorites)
-        return get_paginated_qeryset(
+        return get_paginated_queryset(
             self, RecipeReadSerializer, filtered_queryset, request
         )
 
@@ -159,9 +203,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         detail=True
     )
     def shopping_cart(self, request, pk=None):
-        """
-        Метод, добавляющий или удаляющий выбранный рецепт
-        в списке покупок текущего пользователя.
+        """Добавяет или удаляет выбранный рецепт в списке покупок.
+
+        Args:
+            request (HttpRequest): Объект запроса.
+            pk (int): id рецепта, удаляемого или добавляемого в список покупок.
+
+        Returns:
+            Response: Cтатус подтверждающий или запрещающий выбранное действие.
+
         """
         return post_delete_object(request, pk, ShoppingCart)
 
@@ -170,13 +220,18 @@ class RecipeViewSet(viewsets.ModelViewSet):
         detail=False,
         url_path='shopping_cart'
     )
-    def shopping_cart_list(self, request,):
-        """
-        Метод, возвращающий список обьектов рецептов, которые
-        находятся в списке покупок текущего пользователя.
+    def shopping_cart_list(self, request):
+        """Возвращает рецепты из списка покупок текущего пользователя.
+
+        Args:
+            request (HttpResponse): Объект запроса.
+
+        Returns:
+            Response : Ответ, содержащий рецепты из списка покупок.
+
         """
         shopping_cart = Recipe.objects.filter(shopping_cart__user=request.user)
-        return get_paginated_qeryset(
+        return get_paginated_queryset(
             self, RecipeReadSerializer, shopping_cart, request
         )
 
@@ -185,9 +240,20 @@ class RecipeViewSet(viewsets.ModelViewSet):
         detail=False,
     )
     def download_shopping_cart(self, request):
+        """Скачивает файл со списком покупок.
+
+        Args:
+            request (HttpRequest): Объект запроса.
+
+        Returns:
+            response (HttpResponse): Ответ с файлом.
+
         """
-        Метод, возвращающий текстовый документ, содержащий
-        список ингредиентов и их количество для рецептов,
-        которые находятся в списке покупок текущего пользователя.
-        """
-        return create_and_download_file(request)
+        user = request.user
+        shopping_cart = create_and_download_file(user)
+        response = HttpResponse(
+            shopping_cart,
+            content_type='application/txt'
+        )
+        response['Content-Disposition'] = 'attachment; filename="file.txt"'
+        return response

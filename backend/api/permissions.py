@@ -2,6 +2,12 @@ from rest_framework import permissions
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
+    """Кастомный класс разрешения.
+
+    Разрешает создание/изменение/удаление обьекта только автору
+    или служебному персоналу. Для остальных только чтение.
+
+    """
 
     def has_permission(self, request, view):
         return (
@@ -18,6 +24,12 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 
 class IsCreateOrReadOnly(permissions.BasePermission):
+    """Кастомный класс разрешения.
+
+    Разрешает создание обьекта только анонимным пользователям.
+    Для остальных только чтение.
+
+    """
 
     def has_permission(self, request, view):
         return (
@@ -30,6 +42,12 @@ class IsCreateOrReadOnly(permissions.BasePermission):
 
 
 class IsAdminOrReadOnly(permissions.BasePermission):
+    """Кастомный класс разрешения.
+
+    Разрешает создание/изменение/удаление обьекта только служебному персоналу.
+    Для остальных только чтение.
+
+    """
 
     def has_permission(self, request, view):
         return (

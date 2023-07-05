@@ -4,7 +4,8 @@ from users.models import CustomUser
 
 
 class Tag(models.Model):
-    """Тэги для рецептов"""
+    """Тэги для рецептов."""
+
     name = models.CharField(
         verbose_name='Название тэга',
         max_length=200,
@@ -30,7 +31,8 @@ class Tag(models.Model):
 
 
 class Ingredient(models.Model):
-    """Ингредиенты для рецептов"""
+    """Ингредиенты для рецептов."""
+
     name = models.CharField(
         verbose_name='Название ингридиента',
         max_length=200
@@ -49,7 +51,8 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    """Рецепты"""
+    """Рецепты."""
+
     author = models.ForeignKey(
         CustomUser,
         verbose_name='Автор рецепта',
@@ -92,7 +95,8 @@ class Recipe(models.Model):
 
 
 class IngredientRecipe(models.Model):
-    """Ингредиенты и их количество в рецепте """
+    """Ингредиенты и их количество в рецепте."""
+
     ingredient = models.ForeignKey(
         Ingredient,
         verbose_name='Ингредиент',
@@ -125,7 +129,8 @@ class IngredientRecipe(models.Model):
 
 
 class TagRecipe(models.Model):
-    """ Тэги в рецепте"""
+    """ Тэги в рецепте."""
+
     tag = models.ForeignKey(
         Tag,
         verbose_name='Тэг',
@@ -154,7 +159,8 @@ class TagRecipe(models.Model):
 
 
 class Favorite(models.Model):
-    """Избранные рецепты"""
+    """Избранные рецепты."""
+
     user = models.ForeignKey(
         CustomUser,
         verbose_name='Пользователь',
@@ -183,7 +189,8 @@ class Favorite(models.Model):
 
 
 class ShoppingCart(models.Model):
-    """Рецепты в списке покупок"""
+    """Рецепты в списке покупок."""
+
     user = models.ForeignKey(
         CustomUser,
         verbose_name='Пользователь',
