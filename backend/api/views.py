@@ -112,7 +112,7 @@ class UserViewSet(viewsets.ModelViewSet):
         permission_classes=(permissions.IsAuthenticated,),
         detail=False
     )
-    def subscribtions(self, request,):
+    def subscriptions(self, request):
         """Возвращает список авторов, на которых осуществлена подписка.
 
         Args:
@@ -138,7 +138,7 @@ class TagViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrReadOnly,)
 
 
-class IngridientViewSet(viewsets.ModelViewSet):
+class IngredientViewSet(viewsets.ModelViewSet):
     """Вьюсет для работы с запросами к модели Ingredient."""
 
     queryset = Ingredient.objects.all()
