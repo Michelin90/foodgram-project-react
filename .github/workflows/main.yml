@@ -55,6 +55,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
+            cd foodgram_project/infra/
             sudo docker compose stop
             sudo docker compose rm backend
             sudo docker pull ${{ secrets.DOCKER_LOGIN }}/foodgram_backend:latest
