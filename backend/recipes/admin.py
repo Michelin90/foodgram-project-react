@@ -23,7 +23,6 @@ class RecipeAdmin(admin.ModelAdmin):
         'pk',
         'author',
         'name',
-        'cooking_time',
         'favorites_count'
     )
     list_filter = ('name', 'author__username', 'tags__name')
