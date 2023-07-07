@@ -9,7 +9,7 @@ services:
       - ./.env
 
   backend:
-    build: ../backend
+    build: michelin90/foodgram_backend:latest
     restart: always
     volumes:
       - static_value:/app/static/
@@ -21,7 +21,7 @@ services:
   
   frontend:
     build:
-      context: ../frontend
+      context: michelin90/foodgram_frontend:latest
       dockerfile: Dockerfile
     volumes:
       - ../frontend/:/app/result_build/
@@ -39,7 +39,7 @@ services:
       - static_value:/var/html/static/
       - media_value:/var/html/media/
     depends_on:
-      - backend
+      - frontend
 
 volumes:
   static_value:
