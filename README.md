@@ -37,7 +37,7 @@ git clone https://github.com/Michelin90/foodgram-project-react
 
 ### Шаблон наполнения .env файла:
 
-В директории infra_sp2/infra создайте файл .env и наполните его по следющему шаблону:
+В директории foodgram-project-react/infra создайте файл .env и наполните его по следющему шаблону:
 
 ```
 DB_ENGINE=django.db.backends.postgresql
@@ -53,7 +53,7 @@ DB_PORT=5432
 Перейти в дерикторию запуска:
 
 ```
-cd infra_sp2/infra
+cd foodgram-project-react/infra
 ```
 
 Запустить контейнеры:
