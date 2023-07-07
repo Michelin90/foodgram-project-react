@@ -2,14 +2,14 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from recipes.models import Favorite, Ingredient, Recipe, ShoppingCart, Tag
-from rest_framework import filters, permissions, status, viewsets
+from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from users.models import CustomUser, Subscribe
 
 from .core.views_utils import (create_and_download_file,
                                get_paginated_queryset, post_delete_object)
-from .filters import RecipeFilterSet
+from .filters import IngredientFilterSet, RecipeFilterSet
 from .pagination import MyPagination
 from .permissions import (IsAdminOrReadOnly, IsCreateOrReadOnly,
                           IsOwnerOrReadOnly)
@@ -144,8 +144,8 @@ class IngredientViewSet(viewsets.ModelViewSet):
     queryset = Ingredient.objects.all()
     serializer_class = IngredientSerializer
     permission_classes = (IsAdminOrReadOnly,)
-    filter_backends = (filters.SearchFilter,)
-    search_fields = ('^name',)
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = IngredientFilterSet
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
