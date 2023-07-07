@@ -1,12 +1,9 @@
 from django.contrib import admin
-from django.contrib.auth import get_user_model
 
-from .models import Subscribe
-
-User = get_user_model()
+from .models import Subscribe, CustomUser
 
 
-@admin.register(User)
+@admin.register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
     list_display = (
         'pk',
