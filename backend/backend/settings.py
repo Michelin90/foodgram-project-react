@@ -12,7 +12,7 @@ ALLOWED_HOSTS = [
     'backend',
     'db',
     'testserver',
-    '158.160.68.141'
+    '158.160.68.141',
 ]
 
 INSTALLED_APPS = [
