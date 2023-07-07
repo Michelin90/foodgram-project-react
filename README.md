@@ -8,7 +8,7 @@ http://cooking-time.ddns.net
 ```
 ## Логин админки:
 ```
-Cooking_chief
+administrator@example.com
 ```
 ## Пароль админки:
 ```
