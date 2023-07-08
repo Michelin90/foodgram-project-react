@@ -253,7 +253,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         shopping_cart = create_and_download_file(user)
         response = HttpResponse(
             shopping_cart,
-            content_type='text.txt'
+            content_type='text.txt; charset=utf-8'
         )
         response['Content-Disposition'] = 'attachment; filename="file.txt"'
         return response
