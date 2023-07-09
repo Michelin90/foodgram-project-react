@@ -9,8 +9,7 @@ services:
       - ./.env
 
   backend:
-    #image: michelin90/foodgram_backend:latest
-    build: ../backend
+    image: michelin90/foodgram_backend:latest
     restart: always
     volumes:
       - static_value:/app/static/

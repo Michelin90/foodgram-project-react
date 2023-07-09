@@ -1,6 +1,8 @@
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 from recipes.models import IngredientRecipe, Recipe
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 from rest_framework import response, status
 
 from ..serializers import RecipeShortListSerializer
@@ -67,7 +69,7 @@ def get_paginated_queryset(self, serializer_class, queryset, request):
     return response.Response(serializer.data)
 
 
-def create_and_download_file(user):
+def create_and_download_file(user, page):
     """Создает обьект со списком покупок.
 
     Args:
@@ -82,8 +84,19 @@ def create_and_download_file(user):
     ).values_list(
         'ingredient__name', 'ingredient__measurement_unit',
     ).annotate(Sum('amount'))
-    shopping_cart = 'Список покупок\n\n'
-    shopping_cart += '\n'.join([
-        '{0} - {2}{1}.' .format(*ingredient) for ingredient in ingredients
-    ])
-    return shopping_cart
+    pdfmetrics.registerFont(
+        TTFont('FreeSans', './api/core/Fonts/FreeSans.ttf')
+    )
+    page.setFont('FreeSans', 30)
+    page.drawString(150, 775, 'Список покупок')
+    page.setFont('FreeSans', 20)
+    ingr_number = 1
+    heigh = 725
+    for ingr in ingredients:
+        page.drawString(
+            30, heigh, (f'{ingr_number}. {ingr[0]} - {ingr[2]}{ingr[1]}')
+        )
+        heigh -= 35
+        ingr_number += 1
+    page.showPage()
+    page.save()

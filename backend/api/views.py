@@ -18,6 +18,8 @@ from .serializers import (IngredientSerializer, RecipeCerateSerializer,
                           SubscribeSerializer, TagSerialzer,
                           UserCreateSerializer, UserReadSerialzer)
 
+from reportlab.pdfgen import canvas
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """Вьюсет для работы с запросами к модели CustomUser."""
@@ -250,10 +252,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
         """
         user = request.user
-        shopping_cart = create_and_download_file(user)
-        response = HttpResponse(
-            shopping_cart,
-            content_type='application/txt'
-        )
-        response['Content-Disposition'] = 'attachment; filename="file.txt"'
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="file.pdf"'
+        page = canvas.Canvas(response)
+        create_and_download_file(user, page)
         return response
