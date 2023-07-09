@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from recipes.models import Favorite, Ingredient, Recipe, ShoppingCart, Tag
+from reportlab.pdfgen import canvas
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -17,8 +18,6 @@ from .serializers import (IngredientSerializer, RecipeCerateSerializer,
                           RecipeReadSerializer, SetPasswordSerializer,
                           SubscribeSerializer, TagSerialzer,
                           UserCreateSerializer, UserReadSerialzer)
-
-from reportlab.pdfgen import canvas
 
 
 class UserViewSet(viewsets.ModelViewSet):
