@@ -12,7 +12,7 @@ ALLOWED_HOSTS = [
     'backend',
     'db',
     'testserver',
-    '158.160.68.141',
+    '158.160.11.114',
     'cooking-time.ddns.net',
 ]
 
