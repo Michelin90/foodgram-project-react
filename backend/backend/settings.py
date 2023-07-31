@@ -13,7 +13,7 @@ ALLOWED_HOSTS = [
     'db',
     'testserver',
     '158.160.11.114',
-    'cooking-time.ddns.net',
+    'cooking-chief.ddns.net',
 ]
 
 INSTALLED_APPS = [
