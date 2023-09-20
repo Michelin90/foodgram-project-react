@@ -12,8 +12,8 @@ ALLOWED_HOSTS = [
     'backend',
     'db',
     'testserver',
-    '158.160.11.114',
-    'cooking-chief.ddns.net',
+    '158.160.22.203',
+    'good-recipes.ddns.net',
 ]
 
 INSTALLED_APPS = [
