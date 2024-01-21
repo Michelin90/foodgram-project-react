@@ -1,19 +1,5 @@
-# praktikum_new_diplom
+# foodgram
 ![example workflow](https://github.com/Michelin90/foodgram-project-react/actions/workflows/main.yml/badge.svg)
-
-# Данные для проверки проекта
-## Сервер доступен по адрессу:
-```
-http://cooking-time.ddns.net
-```
-## Логин админки:
-```
-Cooking_chief
-```
-## Пароль админки:
-```
-KeyphrasE
-```
 
 ## Автор:
 
