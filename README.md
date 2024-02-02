@@ -32,6 +32,7 @@ POSTGRES_USER=postgres
 POSTGRES_PASSWORD=<ваш пароль для базы данных>
 DB_HOST=db
 DB_PORT=5432
+SECRET_KEY=<ваш секретный ключ для django проекта>
 ```
 
 ### Описание команд для запуска приложения в контейнерах:
@@ -71,3 +72,10 @@ sudo docker compose exec web python manage.py collectstatic --no-input
 ```
 sudo docker compose exec web python manage.py loaddata fixtures.json
 ```
+
+### Перейти на главную страницу приложения:
+http://localhost/
+
+### Подробная документация проекта:
+http://localhost/api/docs/
+
