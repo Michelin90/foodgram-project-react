@@ -7,7 +7,7 @@
 [![REST_FRAMEWORK](https://img.shields.io/badge/Django_REST_framework-3.12-blue?style=for-the-badge&logo=django)](https://www.django-rest-framework.org/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13.0-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
 [![NGINX](https://img.shields.io/badge/NGINX-1.19-blue?style=for-the-badge&logo=nginx)](https://nginx.org/ru/)
-[![Docker](https://img.shields.io/badge/Docker-black?style=for-the-badge&logo=docker)](https://www.docker.com/)
+[![Docker](https://img.shields.io/badge/Docker-gray?style=for-the-badge&logo=docker)](https://www.docker.com/)
 
 ## Автор:
 
