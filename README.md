@@ -1,5 +1,13 @@
+![example workflow](https://github.com/Michelin90/foodgram-project-react/actions/workflows/main.yml/badge.svg?style=for-the-badge)
 # foodgram
-![example workflow](https://github.com/Michelin90/foodgram-project-react/actions/workflows/main.yml/badge.svg)
+
+## Язык и инструменты:
+[![Python](https://img.shields.io/badge/Python-3.9-blue?style=for-the-badge&logo=python)](https://www.python.org/)
+[![Django](https://img.shields.io/badge/Django-3.2-blue?style=for-the-badge&logo=django)](https://www.djangoproject.com/)
+[![REST_FRAMEWORK](https://img.shields.io/badge/Django_REST_framework-3.12-blue?style=for-the-badge&logo=django)](https://www.django-rest-framework.org/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13.0-blue?style=for-the-badge&logo=postgresql)](https://www.postgresql.org/)
+[![NGINX](https://img.shields.io/badge/NGINX-1.19-blue?style=for-the-badge&logo=nginx)](https://nginx.org/ru/)
+[![Docker](https://img.shields.io/badge/Docker-black?style=for-the-badge&logo=docker)](https://www.docker.com/)
 
 ## Автор:
 
